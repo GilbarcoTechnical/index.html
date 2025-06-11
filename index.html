@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Status Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    input, button {
+      margin: 8px 0;
+      padding: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+    h2 {
+      color: #333;
+    }
+    #copied-msg {
+      color: green;
+      display: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Daily Status Form</h2>
+
+<form id="statusForm">
+  <input type="text" id="fsmId" placeholder="FSM ID" required><br>
+  <input type="text" id="roName" placeholder="RO Name" required><br>
+  <input type="text" id="oilCompany" placeholder="Oil Company" required><br>
+  <input type="text" id="duModel" placeholder="DU Model No." required><br>
+  <input type="text" id="duSerial" placeholder="DU Serial No." required><br>
+  <input type="text" id="defectiveCode" placeholder="Defective Part Code" required><br>
+  <input type="text" id="defectIdentified" placeholder="What Defect Identified" required><br>
+  <input type="text" id="requiredPartCode" placeholder="Required Part Code" required><br>
+  <input type="text" id="requiredPartDesc" placeholder="Required Part Short Description" required><br>
+  <input type="text" id="qtyRequired" placeholder="Qty Required" required><br>
+  <button type="submit">Submit & Copy</button>
+</form>
+
+<p id="copied-msg">Copied! You can now paste it in WhatsApp.</p>
+
+<script>
+  document.getElementById('statusForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fsmId = document.getElementById('fsmId').value.trim();
+    const roName = document.getElementById('roName').value.trim();
+    const oilCompany = document.getElementById('oilCompany').value.trim();
+    const duModel = document.getElementById('duModel').value.trim();
+    const duSerial = document.getElementById('duSerial').value.trim();
+    const defectiveCode = document.getElementById('defectiveCode').value.trim();
+    const defectIdentified = document.getElementById('defectIdentified').value.trim();
+    const requiredPartCode = document.getElementById('requiredPartCode').value.trim();
+    const requiredPartDesc = document.getElementById('requiredPartDesc').value.trim();
+    const qtyRequired = document.getElementById('qtyRequired').value.trim();
+
+    const message =
+`Daily Status Report
+FSM ID: ${fsmId}
+RO Name: ${roName}
+Oil Company: ${oilCompany}
+DU Model No.: ${duModel}
+DU Serial No.: ${duSerial}
+Defective Part Code: ${defectiveCode}
+Defect Identified: ${defectIdentified}
+Required Part Code: ${requiredPartCode}
+Required Part Description: ${requiredPartDesc}
+Qty Required: ${qtyRequired}`;
+
+    const tempInput = document.createElement('textarea');
+    tempInput.value = message;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    document.getElementById('copied-msg').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
