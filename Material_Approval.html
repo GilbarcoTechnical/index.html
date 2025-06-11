@@ -119,17 +119,19 @@
     const qtyRequired = document.getElementById('qtyRequired').value.trim();
 
     message =
-`Approval for Material Consumption/ Order from TCSD/ASM
-FSM ID: ${fsmId}
-RO Name: ${roName}
-Oil Company: ${oilCompany}
+`📦 Approval for Material Consumption / Order from TCSD/ASM
 
-DU Serial No.: ${duSerial}
-Defective Part Code: ${defectiveCode}
-Defect Identified: ${defectIdentified}
-Required Part Code: ${requiredPartCode}
-Required Part Description: ${requiredPartDesc}
-Qty Required: ${qtyRequired}`;
+🆔 FSM ID: ${fsmId}
+🏪 RO Name: ${roName}
+🏢 Oil Company: ${oilCompany}
+
+🔧 DU Serial No.: ${duSerial}
+❌ Defective Part Code: ${defectiveCode}
+⚠️ Defect Identified: ${defectIdentified}
+
+📦 Required Part Code: ${requiredPartCode}
+📝 Required Part Description: ${requiredPartDesc}
+🔢 Qty Required: ${qtyRequired}`;
 
     const tempInput = document.createElement('textarea');
     tempInput.value = message;
