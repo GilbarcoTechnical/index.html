@@ -1,57 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Approval for Material Consumption/ Order from TCSD/ASM</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
+      margin: 0;
       background: #f9f9f9;
+      display: flex;
+      justify-content: center;
     }
-    input, button {
-      margin: 8px 0;
-      padding: 10px;
+
+    .container {
       width: 100%;
-      max-width: 500px;
+      max-width: 600px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
     }
+
     h2 {
       color: #333;
+      text-align: center;
+      margin-bottom: 20px;
     }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
     #copied-msg {
       color: green;
       display: none;
       font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .btn-secondary {
+      background-color: #999;
+    }
+
+    .btn-whatsapp {
+      background-color: #25D366;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      input, button {
+        font-size: 15px;
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
 
-<h2>Approval for Material Consumption/ Order from TCSD/ASM</h2>
+<div class="container">
+  <h2>Approval for Material Consumption/ Order from TCSD/ASM</h2>
 
-<form id="statusForm">
-  <input type="text" id="fsmId" placeholder="FSM ID" required><br>
-  <input type="text" id="roName" placeholder="RO Name" required><br>
-  <input type="text" id="oilCompany" placeholder="Oil Company" required><br>
+  <form id="statusForm">
+    <input type="text" id="fsmId" placeholder="FSM ID" required>
+    <input type="text" id="roName" placeholder="RO Name" required>
+    <input type="text" id="oilCompany" placeholder="Oil Company" required>
+    <input type="text" id="duSerial" placeholder="DU Serial No." required>
+    <input type="text" id="defectiveCode" placeholder="Defective Part Code" required>
+    <input type="text" id="defectIdentified" placeholder="What Defect Identified" required>
+    <input type="text" id="requiredPartCode" placeholder="Required Part Code" required>
+    <input type="text" id="requiredPartDesc" placeholder="Required Part Short Description" required>
+    <input type="text" id="qtyRequired" placeholder="Qty Required" required>
+    
+    <button type="submit">Submit & Copy</button>
+    <button type="button" class="btn-secondary" onclick="clearForm()">Clear</button>
+    <button type="button" class="btn-whatsapp" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+  </form>
 
-  <input type="text" id="duSerial" placeholder="DU Serial No." required><br>
-  <input type="text" id="defectiveCode" placeholder="Defective Part Code" required><br>
-  <input type="text" id="defectIdentified" placeholder="What Defect Identified" required><br>
-  <input type="text" id="requiredPartCode" placeholder="Required Part Code" required><br>
-  <input type="text" id="requiredPartDesc" placeholder="Required Part Short Description" required><br>
-  <input type="text" id="qtyRequired" placeholder="Qty Required" required><br>
-  <button type="submit">Submit & Copy</button>
-</form>
-
-<p id="copied-msg">Copied! You can now paste it in WhatsApp.</p>
+  <p id="copied-msg">Copied! You can now paste it in WhatsApp.</p>
+</div>
 
 <script>
+  let message = "";
+
   document.getElementById('statusForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const fsmId = document.getElementById('fsmId').value.trim();
     const roName = document.getElementById('roName').value.trim();
     const oilCompany = document.getElementById('oilCompany').value.trim();
-
     const duSerial = document.getElementById('duSerial').value.trim();
     const defectiveCode = document.getElementById('defectiveCode').value.trim();
     const defectIdentified = document.getElementById('defectIdentified').value.trim();
@@ -59,7 +118,7 @@
     const requiredPartDesc = document.getElementById('requiredPartDesc').value.trim();
     const qtyRequired = document.getElementById('qtyRequired').value.trim();
 
-    const message =
+    message =
 `Approval for Material Consumption/ Order from TCSD/ASM
 FSM ID: ${fsmId}
 RO Name: ${roName}
@@ -81,6 +140,21 @@ Qty Required: ${qtyRequired}`;
 
     document.getElementById('copied-msg').style.display = 'block';
   });
+
+  function clearForm() {
+    document.getElementById("statusForm").reset();
+    document.getElementById('copied-msg').style.display = 'none';
+  }
+
+  function shareOnWhatsApp() {
+    if (!message) {
+      alert("Please fill the form and click Submit before sharing.");
+      return;
+    }
+    const encodedMsg = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/?text=${encodedMsg}`;
+    window.open(whatsappURL, '_blank');
+  }
 </script>
 
 </body>
